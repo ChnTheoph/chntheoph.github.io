@@ -267,3 +267,7 @@ nav li:hover > ul {
 .stat-cv p {
     color: #aaa;
 }
+
+
+/* Boutons PDF masqués tant que le lien n'est pas renseigné */
+a[href="TON_LIEN_DRIVE_ICI"], a[href="LIEN_GOOGLE_DRIVE_DU_PDF"] { display: none !important; }
