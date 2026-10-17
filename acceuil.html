@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Génie Civil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#" onclick="changerPage('accueil')">Accueil</a></li>
+            <li>
+                <a href="#">1ère Année ▾</a>
+                <ul>
+                    <li>
+                        <a href="#">Semestre 1 ▸</a>
+                        <ul>
+                            <li><a href="#" onclick="changerPage('sae101')">[SAE 1.01] Bâtiment</a></li>
+                            <li><a href="#" onclick="changerPage('sae102tp')">[SAE 1.02] Ouvrage d'art</a></li>
+                            <li><a href="#" onclick="changerPage('sae102topo')">[SAE 1.02] Topographie</a></li>
+                            <li><a href="#" onclick="changerPage('sae103')">[SAE 1.03] Modélisation</a></li>
+                            <li><a href="#" onclick="changerPage('sae104')">[SAE 1.04] Réseaux</a></li>
+                            <li><a href="#" onclick="changerPage('sae105')">[SAE 1.05] Devis</a></li>
+                            <li><a href="#" onclick="changerPage('sae106')">[SAE 1.06] État des lieux</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Semestre 2 ▸</a>
+                        <ul>
+                            <li><a href="#" onclick="changerPage('sae201')">[SAE 2.01] Aménagement</a></li>
+                            <li><a href="#" onclick="changerPage('sae202')">[SAE 2.02] VRD</a></li>
+                            <li><a href="#" onclick="changerPage('sae203')">[SAE 2.03] Relevé complexe</a></li>
+                            <li><a href="#" onclick="changerPage('sae204')">[SAE 2.04] Sollicitations</a></li>
+                            <li><a href="#" onclick="changerPage('sae205')">[SAE 2.05] Isolation</a></li>
+                            <li><a href="#" onclick="changerPage('sae206')">[SAE 2.06] Planification</a></li>
+                            <li><a href="#" onclick="changerPage('sae207')">[SAE 2.07] Environnement</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" onclick="changerPage('stage1')">Stage 1</a></li>
+                </ul>
+            </li>
+            <li><a href="#" onclick="changerPage('contact')">Contact & CV</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <section id="accueil" class="section-contenu page-active">
+            <div class="hero-header">
+                <h1>Théophile Chenu</h1>
+                <h2 class="sous-titre">BUT Génie Civil & Construction Durable</h2>
+                <p>IUT de Saint-Nazaire</p>
+            </div>
+            <p style="text-align: center; margin-top: 30px; color: #aaa;">Sélectionnez un projet dans le menu en haut pour explorer mes travaux et rapports d'essais.</p>
+        </section>
+
+
+<section id="sae101" class="section-contenu page-masquee">
+            <h2 class="titre-section">SAE 1.01 - Études d'exécution d'un ouvrage de bâtiment</h2>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📝 Bilan de la SAÉ</h3>
+                    
+                    <p><strong>Ce que je maîtrise :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>Analyse technique de CCTP (Gros Œuvre), rapports géotechniques et plans architecturaux.</li>
+                        <li>Conception sur AutoCAD de plans d'exécution de principe (fondations, coffrage, trémies, porteurs).</li>
+                        <li>Application rigoureuse des normes et conventions de dessin du BTP.</li>
+                    </ul>
+                    
+                    <p><strong>Difficultés & Solutions :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><em>Défi :</em> Complexité de la gestion DAO (hiérarchie des calques, blocs avec attributs, lisibilité des cotations).</li>
+                        <li><em>Solution :</em> Mise en place d'une nomenclature stricte (Files, Murs de soubassement, etc.) et contrôles par étapes pour sécuriser les fichiers DWG.</li>
+                    </ul>
+                    
+                    <p><strong>Progression & Application Pro :</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>Édition de livrables professionnels multi-échelles (1/50, 1/20) et multi-formats (A0 à A4).</li>
+                        <li>Lecture fluide des plans d'exécution, constituant un atout direct pour la préparation de chantier et le suivi des équipes lors de mes futures missions d'assistant chef de chantier.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>⚙️ Compétences & Qualités acquises</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>CAO / DAO (AutoCAD)</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Modélisation 2D respectant les standards d'exécution.</li>
+                        <li><strong>Analyse de dossiers techniques</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Décryptage des CCTP et missions G2.</li>
+                        <li><strong>Technologie du bâtiment</strong> - <em>Niveau 2 (Intermédiaire)</em> : Identification des éléments de Gros Œuvre (voiles, dalles, joints de dilatation).</li>
+                        <li><strong>Rigueur et Méthode</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Structuration des données informatiques (calques, purges).</li>
+                        <li><strong>Mise en page technique</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Gestion des présentations avec cartouches normalisés.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📂 Mes Livrables & Annexes</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                        <li>Plan de coffrage du plancher haut du R+1 (Bâtiment B) au format DWG et PDF (A2, A3, cartouche A4).</li>
+                        <li>Plan de fondations avec coupes détaillées (Bâtiment C) au format DWG et PDF (A0, A3, cartouche A4).</li>
+                        <li>Note de synthèse des matériaux du lot Gros Œuvre.</li>
+                    </ul>
+                    <a href="TON_LIEN_DRIVE_ICI" target="_blank" class="bouton-moderne">📄 Consulter mes plans (PDF)</a>
+                </div>
+                <div class="carte-image">
+                    <img src="document-rendu-SAE 101.png" alt="Fichiers de rendus de la SAE 1.01">
+                </div>
+            </div>
+        </section>
+
+<section id="sae102tp" class="section-contenu page-masquee">
+            <h2 class="titre-section">SAE 1.02 - Projet d'ouvrage d'art</h2>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📝 Bilan de la SAÉ</h3>
+                    
+                    <p><strong>Ce que je maîtrise :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>Analyse technique d'un projet d'infrastructure (pont) et de son Cahier des Clauses Techniques Particulières.</li>
+                        <li>Définition de la chronologie complète d'un chantier, depuis l'installation jusqu'aux équipements de l'ouvrage (corniches, garde-corps).</li>
+                        <li>Dimensionnement précis du matériel de coffrage (panneaux métalliques Doka Framax) et calcul des charges.</li>
+                        <li>Rédaction de fiches de tâches détaillées pour l'exécution des fondations profondes (pieux) et des voiles en béton armé.</li>
+                    </ul>
+                    
+                    <p><strong>Difficultés & Solutions :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><em>Défi :</em> Appréhender la géométrie complexe de l'ouvrage dans l'espace (murs en retour type drapeau, pentes des dalles de transition).</li>
+                        <li><em>Solution :</em> Décomposition rigoureuse des éléments via des vues multiples (face, dessus, gauche) et modélisation mentale étape par étape pour sécuriser la commande de matériel.</li>
+                    </ul>
+                    
+                    <p><strong>Progression & Application Professionnelle :</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>Intégration des contraintes de sécurité collective (passerelles Xsafe) dès la phase de préparation.</li>
+                        <li>Ces méthodes de planification, de commande de matériel et de rédaction de modes opératoires sont directement transposables pour mes futures missions de préparation de chantier en entreprise.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>⚙️ Compétences & Qualités acquises</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Technologie des Travaux Publics</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Identification et description des procédés constructifs (pieux, piédroits, remblais contigus).</li>
+                        <li><strong>Préparation de chantier</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Établissement de la chronologie d'exécution et des nomenclatures de matériel.</li>
+                        <li><strong>Dimensionnement de coffrage</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Choix, calepinage et calcul du poids des panneaux de coffrage pour des voiles de grande dimension.</li>
+                        <li><strong>Dessin technique</strong> - <em>Niveau 2 (Intermédiaire)</em> : Production de plans de détails d'ouvrages d'art en respectant la correspondance des vues.</li>
+                        <li><strong>Sens de la sécurité</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Intégration systématique des dispositifs de protection (garde-corps continus) dans les choix techniques.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📂 Mes Livrables & Annexes</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                        <li>Notice technique de synthèse justifiant le dimensionnement des coffrages et les dispositifs de sécurité.</li>
+                        <li>Fiche de tâche complète décrivant le mode opératoire pour la réalisation des fondations profondes et des appuis.</li>
+                        <li>Plan d'exécution du piédroit Est avec murs en retour (vues multiples, échelle 1/50).</li>
+                        <li>Nomenclature détaillée des commandes de matériel de coffrage.</li>
+                    </ul>
+                    <a href="TON_LIEN_DRIVE_ICI" target="_blank" class="bouton-moderne">📄 Consulter mes livrables (PDF)</a>
+                </div>
+                <div class="carte-image">
+                    <img src="image-1767780530333.png" alt="Modélisation d'un ouvrage d'art">
+                </div>
+            </div>
+        </section>
+
+<section id="sae102topo" class="section-contenu page-masquee">
+            <h2 class="titre-section">SAE 1.02 - Relevé simple planimétrique et altimétrique</h2>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📝 Bilan de la SAÉ</h3>
+                    
+                    <p><strong>Ce que je maîtrise :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>Mise en station d'un théodolite de marque Leica, configuration des hauteurs d'instrument, et utilisation d'un prisme sur trépied.</li>
+                        <li>Application pratique de la méthode de la station libre en s'appuyant sur des points de référence connus (points 8 et 10bis) pour définir les coordonnées de l'appareil.</li>
+                        <li>Acquisition planimétrique et altimétrique de plus de soixante-dix points par la méthode du rayonnement.</li>
+                        <li>Importation du carnet de terrain sur le logiciel Mensura afin de générer une modélisation tridimensionnelle du relief et des aménagements (noue paysagère, cheminements).</li>
+                    </ul>
+                    
+                    <p><strong>Difficultés & Solutions :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><em>Défi :</em> L'absence de certains éléments structurels (façade du bâtiment 22, terrasse) sur le modèle numérique final, causée par un manque de précision et d'organisation lors de la prise de mesure sur le terrain.</li>
+                        <li><em>Solution :</em> Établissement d'une méthodologie de relevé plus stricte consistant à lever systématiquement tous les angles des bâtiments et ouvrages avant d'effectuer le maillage interne par balayage.</li>
+                    </ul>
+                    
+                    <p><strong>Progression & Application Professionnelle :</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>Capacité à vérifier analytiquement les coordonnées et les altitudes issues de l'appareil.</li>
+                        <li>Cette maîtrise de la chaîne d'acquisition et de traitement des données topographiques constitue une compétence indispensable pour préparer l'implantation de futurs ouvrages en phase de préparation de chantier.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>⚙️ Compétences & Qualités acquises</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Relevé Topographique</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Manipulation experte des instruments de mesure (théodolite, station totale, prisme) sur le terrain.</li>
+                        <li><strong>Modélisation Numérique (Mensura)</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Traitement informatique des carnets de terrain pour générer une surface topographique exploitable.</li>
+                        <li><strong>Calculs Topométriques</strong> - <em>Niveau 2 (Intermédiaire)</em> : Maîtrise des formules de résolution des triangles et des calculs de dénivelés (ΔX, ΔY, altitudes).</li>
+                        <li><strong>Travail en équipe</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Coordination efficace des rôles (opérateur, porte-prisme, croquiseur) au sein d'un groupe de trois intervenants.</li>
+                        <li><strong>Analyse critique</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Évaluation de la précision des relevés et capacité à proposer des mesures correctives pour les futures interventions.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📂 Mes Livrables & Annexes</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                        <li>Compte rendu technique détaillant l'implantation de la station libre et le maillage par rayonnement.</li>
+                        <li>Extraction et traitement du carnet de terrain électronique comprenant les lectures angulaires et distanciométriques.</li>
+                        <li>Modélisation numérique du terrain située derrière la Bibliothèque Universitaire de l'Institut Universitaire de Technologie.</li>
+                    </ul>
+                    <a href="TON_LIEN_DRIVE_ICI" target="_blank" class="bouton-moderne">📄 Consulter mes livrables (PDF)</a>
+                </div>
+                <div class="carte-image">
+                    <img src="https://via.placeholder.com/600x400/222222/FFD700?text=Mod%C3%A9lisation+Mensura" alt="Modélisation d'un terrain sur Mensura">
+                </div>
+            </div>
+        </section>
+
+<!-- ================= SAE 1.03 - Structure ================= -->
+        <section id="sae103" class="section-contenu page-masquee">
+            <h2 class="titre-section">SAE 1.03 - Modélisation d'un élément structurel simple et de son chargement</h2>
+
+            <!-- BLOC 1 : LE BILAN -->
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📝 Bilan de la SAÉ</h3>
+                    
+                    <p><strong>Ce que je maîtrise :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>Analyse technique et structurelle d'un plancher haut de rez-de-chaussée pour un bâtiment résidentiel en structure bois.</li>
+                        <li>Détermination précise des charges permanentes des matériaux (isolation en textile recyclé, plaques de plâtre, panneaux à lamelles minces orientées) et des charges d'exploitation de catégorie A en s'appuyant sur l'Eurocode 1.</li>
+                        <li>Modélisation mécanique complète, incluant le calcul des réactions d'appuis pour des solives en bois massif et des poutres en bois lamellé collé.</li>
+                        <li>Tracé rigoureux des diagrammes d'effort tranchant et de moment fléchissant afin d'évaluer les sollicitations internes des éléments porteurs.</li>
+                        <li>Vérification de la contrainte de compression exercée sur le sol par les fondations des poteaux, en la confrontant à la résistance admissible de 0,3 MégaPascals.</li>
+                    </ul>
+                    
+                    <p><strong>Difficultés & Solutions :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><em>Défi :</em> La gestion d'un grand volume de données normatives et la modélisation en temps limité ne permettent pas toujours de restituer l'intégralité du raisonnement mécanique.</li>
+                        <li><em>Solution :</em> Reprise à froid du dossier pour structurer une note de calcul limpide, détaillant chaque étape du cheminement des efforts, depuis la surface du plancher jusqu'à la transmission des charges aux fondations.</li>
+                    </ul>
+                    
+                    <p><strong>Progression & Application Professionnelle :</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>Capacité à extraire et interpréter les documentations techniques des fournisseurs (résistances thermiques, densités) pour nourrir les calculs structurels.</li>
+                        <li>Cette méthodologie d'analyse statique est fondamentale pour dialoguer efficacement avec les bureaux d'études techniques lors de mes futures missions en conduite de travaux.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BLOC 2 : COMPÉTENCES & QUALITÉS -->
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>⚙️ Compétences & Qualités acquises</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Mécanique des structures</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Modélisation des appuis et équilibre statique des éléments fléchis.</li>
+                        <li><strong>Descente de charges</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Évaluation et cumul des actions permanentes et variables selon les normes européennes.</li>
+                        <li><strong>Technologie du bois</strong> - <em>Niveau 2 (Intermédiaire)</em> : Identification et justification des sections en bois massif et en bois lamellé collé.</li>
+                        <li><strong>Résistance des matériaux</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Calcul des moments fléchissants maximaux et analyse de la répartition des efforts.</li>
+                        <li><strong>Rigueur analytique</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Structuration logique d'une note de calcul vérifiable par un tiers.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BLOC 3 : LIVRABLES ET ANNEXES -->
+            <!--<div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📂 Mes Livrables & Annexes</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                        <li>Note de calculs détaillée justifiant les charges reprises par chaque type de solive et par la poutre principale.</li>
+                        <li>Schémas mécaniques et diagrammes des sollicitations (effort tranchant et moment fléchissant).</li>
+                        <li>Note de vérification de la portance du sol sous la fondation du poteau.</li>
+                    </ul>
+                    <a href="TON_LIEN_DRIVE_ICI" target="_blank" class="bouton-moderne">📄 Consulter ma note de calculs (PDF)</a>
+                </div>
+                <div class="carte-image">
+                    <img src="TON_IMAGE_A_INSERER.png" alt="Modélisation d'une structure en bois">
+                </div>
+            </div>-->
+        </section>        
+<!-- ================= SAE 1.04 - Réseaux ================= -->
+        <section id="sae104" class="section-contenu page-masquee">
+            <h2 class="titre-section">SAE 1.04 - Repérage et dimensionnement des réseaux secs et humides</h2>
+
+            <!-- BLOC 1 : LE BILAN -->
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📝 Bilan de la SAÉ</h3>
+                    
+                    <p><strong>Ce que je maîtrise :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>Analyse des plans architecturaux et du Cahier des Clauses Techniques Particulières pour un projet de petit collectif situé à Pornichet.</li>
+                        <li>Dimensionnement du réseau d'alimentation en eau potable en conformité avec les règles du Document Technique Unifié (DTU 60-11).</li>
+                        <li>Conception et calcul du système de Ventilation Mécanique Contrôlée (VMC) en respectant le DTU 68.1 et l'arrêté du 24 mars 1982 relatif à l'aération des logements.</li>
+                        <li>Réalisation des schémas d'implantation des réseaux sur un logiciel de Dessin Assisté par Ordinateur (DAO).</li>
+                    </ul>
+                    
+                    <p><strong>Difficultés & Solutions :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><em>Défi :</em> Assurer la cohérence entre les tracés des différents réseaux (secs et humides) pour éviter les conflits spatiaux dans un bâtiment collectif.</li>
+                        <li><em>Solution :</em> Utilisation rigoureuse d'un tableur Excel pour valider toutes les notes de calculs avant de passer à l'étape de modélisation DAO.</li>
+                    </ul>
+                    
+                    <p><strong>Progression & Application Professionnelle :</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>Apprentissage de la recherche documentaire technique (documentation constructeur de ventilateurs, normes en vigueur).</li>
+                        <li>Cette compréhension globale des lots techniques (plomberie, ventilation) me permet d'avoir une vision transversale du bâtiment, compétence indispensable pour la coordination des différents corps d'état sur un chantier.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BLOC 2 : COMPÉTENCES & QUALITÉS -->
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>⚙️ Compétences & Qualités acquises</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Dimensionnement d'équipements</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Calcul des sections de tuyauterie et des débits aérauliques.</li>
+                        <li><strong>Application normative</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Traduction technique des exigences des DTU (Plomberie et Ventilation).</li>
+                        <li><strong>Dessin technique (DAO)</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Représentation claire et normalisée des réseaux sur plans.</li>
+                        <li><strong>Traitement de données</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Création de feuilles de calcul automatisées sur Excel pour sécuriser les dimensionnements.</li>
+                        <li><strong>Esprit de synthèse</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Rédaction d'un livrable clair compilant plans et justifications techniques.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BLOC 3 : LIVRABLES ET ANNEXES -->
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📂 Mes Livrables & Annexes</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                        <li>Fichier Excel complet contenant les notes de calcul pour l'eau potable et la VMC.</li>
+                        <li>Dossier de synthèse au format PDF intégrant les schémas DAO des réseaux.</li>
+                    </ul>
+                    <a href="TON_LIEN_DRIVE_ICI" target="_blank" class="bouton-moderne">📄 Consulter ma note de calculs</a>
+                </div>
+                <div class="carte-image">
+                    <!-- IMAGE D'ILLUSTRATION DU PROJET (Tu peux utiliser une capture d'écran de ton fichier Excel ou DAO) -->
+                    <img src="TON_IMAGE_RESEAUX_ICI.png" alt="Plan d'implantation des réseaux de plomberie et VMC">
+                </div>
+            </div>
+        </section>
+
+<!-- ================= SAE 1.05 - Devis ================= -->
+        <section id="sae105" class="section-contenu page-masquee">
+            <h2 class="titre-section">SAE 1.05 - Devis d’un ouvrage simple</h2>
+
+            <!-- BLOC 1 : LE BILAN -->
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📝 Bilan de la SAÉ</h3>
+                    
+                    <p><strong>Ce que je retiens :</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>Identification des rôles des différents acteurs de l'acte de construire (maître d'ouvrage, maître d'œuvre, bureaux d'études) pour la maison individuelle "St Julien".</li>
+                        <li>Analyse technique des modes constructifs : de la maçonnerie des fondations et élévations jusqu'aux finitions (plâtrerie, chapes, revêtements de sol).</li>
+                        <li>Utilisation de bases de données de prix (BATIPRIX) et réalisation de métrés sur feuilles minutes pour estimer le coût des lots techniques.</li>
+                        <li>Comparaison des variantes techniques, notamment entre la chape classique et la chape fluide, en intégrant les impacts sur le planning et les déboursés secs.</li>
+                    </ul>
+                    
+                    <p><strong>Analyse critique :</strong></p>
+                    <p style="margin-left: 20px; margin-bottom: 15px;">
+                        Cette SAÉ a mis en évidence l'importance de la précision dans le chiffrage. Cependant, le manque de définition claire des objectifs initiaux a parfois rendu le travail fastidieux, avec une concentration excessive sur des détails techniques mineurs au détriment d'une vision globale du pilotage économique d'un chantier.
+                    </p>
+                </div>
+            </div>
+
+            <!-- BLOC 2 : COMPÉTENCES & QUALITÉS -->
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>⚙️ Compétences & Qualités acquises</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Chiffrage et DQE</strong> - <em>Niveau 2 (Intermédiaire)</em> : Établissement de devis quantitatifs et estimatifs pour des lots de construction.</li>
+                        <li><strong>Analyse de plans et descriptifs</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Lecture et exploitation des pièces écrites et graphiques d'un dossier technique.</li>
+                        <li><strong>Gestion de variantes</strong> - <em>Niveau 2 (Intermédiaire)</em> : Comparaison de modes opératoires et évaluation de leur impact financier et temporel.</li>
+                        <li><strong>Rigueur méthodologique</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Structuration d'un métré détaillé et respect des processus de commande de matériaux.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BLOC 3 : LIVRABLES ET ANNEXES -->
+            <!-- 
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>📂 Mes Livrables & Annexes</h3>
+                    <p>Aucun livrable conservé pour ce projet.</p>
+                </div>
+            </div>
+            -->
+        </section>
+
+<!-- ================= SAE 1.06 - État des lieux ================= -->
+<section id="sae106" class="section-contenu page-masquee">
+    <h2 class="titre-section">SAE 1.06 - [REHA] État des lieux d'un ouvrage existant</h2>
+
+    <!-- BLOC 1 : LE BILAN -->
+    <div class="carte-projet">
+        <div class="carte-texte">
+            <h3>📝 Bilan de la SAÉ</h3>
+
+            <p><strong>Ce que je maîtrise :</strong></p>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li>Réalisation d'un relevé métrique complet de la salle de TD n°0.35 (Bâtiment B, IUT de Saint-Nazaire) à l'aide d'un distancemètre, en procédant méthodiquement par corps d'état (parois, menuiseries, équipements).</li>
+                <li>Constitution d'un dossier de plans réglementaire comprenant une vue en plan et une coupe longitudinale cotées et légendées à l'échelle 1/50, produites selon les règles du dessin technique.</li>
+                <li>Rédaction d'un tableau structuré des états des ouvrages recensant l'ensemble des éléments de la salle (murs, faux-plafond, sol, menuiseries intérieures et extérieures, équipements techniques et mobilier fixe), avec description du support, du revêtement et de l'état constaté.</li>
+                <li>Conduite d'un audit de confort multi-critères (acoustique, visuel, thermique et qualité de l'air intérieur) à l'aide d'instruments professionnels : sonomètre, luxmètre digital Sauter SO 200k, caméra thermique FLIR TG167, hygromètre et thermo-anémomètre à fil chaud Kimo avec cône K35.</li>
+                <li>Rédaction d'un rapport professionnel de 18 pages structuré selon les attendus d'une équipe de maîtrise d'œuvre, incluant introduction, rapport photographique, audit de confort et conclusion argumentée.</li>
+            </ul>
+
+            <p><strong>Difficultés & Solutions :</strong></p>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li><em>Défi :</em> Organiser méthodiquement la prise de mesures sur le terrain pour n'omettre aucun élément, notamment les équipements en hauteur (gaines VMC, plafonniers, détecteurs de présence) et les détails d'huisserie.</li>
+                <li><em>Solution :</em> Utilisation d'un plan à main levée comme fil conducteur de la visite, complété par le tableau des états structuré par corps d'état et un relevé photographique systématique servant de mémoire visuelle.</li>
+                <li><em>Défi :</em> Interpréter correctement les résultats du confort thermique : la température opérative mesurée (20,87 °C) était inférieure au seuil de confort de 22-24 °C, mais les mesures ont été effectuées en fin d'été, hors conditions hivernales de référence.</li>
+                <li><em>Solution :</em> Contextualisation rigoureuse des résultats dans le rapport en précisant la période de mesure, puis formulation d'une recommandation technique ciblée (isolation thermique par l'extérieur) pour corriger cette non-conformité.</li>
+            </ul>
+
+            <p><strong>Progression & Application Professionnelle :</strong></p>
+            <ul style="margin-left: 20px;">
+                <li>Maîtrise de la chaîne complète d'un état des lieux professionnel : du relevé terrain jusqu'au rapport finalisé, en passant par le dossier de plans et l'audit de conformité normative (EN 12464-1, ISO 7730, ISO 13788, NF ISO 16814).</li>
+                <li>Capacité à distinguer les éléments conformes (confort acoustique et visuel validés) des points nécessitant des préconisations de travaux (isolation thermique insuffisante), compétence directement utile pour les missions de diagnostic et de conduite d'opération de réhabilitation.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BLOC 2 : COMPÉTENCES & QUALITÉS -->
+    <div class="carte-projet">
+        <div class="carte-texte">
+            <h3>⚙️ Compétences & Qualités acquises</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Relevé architectural in situ</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Mesure de l'existant et transcription sur plans cotés et légendés (vue en plan + coupe à l'échelle 1/50).</li>
+                <li><strong>Audit de confort multi-critères</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Conduite et interprétation de mesures acoustiques, lumineuses, thermiques et de qualité d'air, avec confrontation aux seuils normatifs.</li>
+                <li><strong>Exploitation normative</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Lecture et application des normes de référence du bâtiment (EN 12464-1 confort visuel, ISO 7730 confort thermique, NF ISO 16814 qualité d'air).</li>
+                <li><strong>Rédaction de rapport professionnel</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Production d'un document de 18 pages structuré, paginé, mis en page et rédigé selon les standards d'une équipe de maîtrise d'œuvre.</li>
+                <li><strong>Analyse critique et préconisations</strong> - <em>Niveau 2 (Intermédiaire)</em> : Identification des non-conformités réglementaires et formulation de recommandations techniques (isolation par l'extérieur) à destination du maître d'ouvrage.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BLOC 3 : LIVRABLES ET ANNEXES -->
+    <div class="carte-projet">
+        <div class="carte-texte">
+            <h3>📂 Mes Livrables & Annexes</h3>
+            <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                <li>Rapport professionnel complet de 18 pages : présentation du bâtiment et de la salle, tableau des états, rapport photographique, audit de confort (acoustique, visuel, thermique, QAI) et conclusion.</li>
+                <li>Vue en plan de la salle 0.35 (Bâtiment B, RDC) cotée et légendée à l'échelle 1/50.</li>
+                <li>Coupe longitudinale AA de la salle 0.35 cotée à l'échelle 1/50.</li>
+                <li>Tableau des états des ouvrages structuré par corps d'état (parois, menuiseries, équipements, mobilier fixe).</li>
+            </ul>
+            <a href="TON_LIEN_DRIVE_ICI" target="_blank" class="bouton-moderne">📄 Consulter mon rapport (PDF)</a>
+        </div>
+        <div class="carte-image">
+            <img src="TON_IMAGE_SAE106_ICI.png" alt="Vue en plan de la salle 0.35 - IUT Saint-Nazaire">
+        </div>
+    </div>
+</section>        
+
+<!-- ================= SAE 2.01 - Aménagement/Extension ================= -->
+<section id="sae201" class="section-contenu page-masquee">
+    <h2 class="titre-section">SAE 2.01 - Projet d'aménagement/extension de bâtiment</h2>
+
+    <!-- BLOC 1 : LE BILAN -->
+    <div class="carte-projet">
+        <div class="carte-texte">
+            <h3>📝 Bilan de la SAÉ</h3>
+
+            <p><strong>Ce que je maîtrise :</strong></p>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li>Lecture et exploitation d'un dossier de conception complet (plans architecturaux, plans de charpente métallique, CCTP) pour un programme de bâtiments artisanaux — le projet "Espace Six Croix" à Donges (Loire-Atlantique).</li>
+                <li>Identification et description des modes constructifs d'un bâtiment à ossature métallique : portiques, arbalétriers, pannes, TAN (Tôles d'Acier Nervurées), bardage double peau, plancher collaborant, murs coupe-feu.</li>
+                <li>Conception d'un projet d'aménagement intérieur complet pour la cellule A9 (loueur de vans aménagés) : plan de masse (1/100), vues en plan RDC et R+1 (1/50), coupe longitudinale AA (1/50) et vues 3D illustrant chaque espace.</li>
+                <li>Rédaction d'un rapport technique professionnel décrivant les solutions techniques lot par lot — plâtrerie (système Placostil®, cloisons SAD 160 EI 120, plaques Gyptone® Activ'Air®), revêtements de sol (grès cérame U4P4S + époxy bi-composants au garage, grès vitrifié U3SP3 en accueil) et finitions (NF DTU 59.1, niveau B).</li>
+                <li>Réalisation d'une étude quantitative et estimative à partir de BATIPRIX, totalisant <strong>59 577,05 € HT</strong> sur quatre lots (plâtrerie, plafond, revêtement de sol, peinture).</li>
+            </ul>
+
+            <p><strong>Difficultés & Solutions :</strong></p>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li><em>Défi :</em> Concilier dans un même volume les exigences contradictoires d'une zone artisanale (garage pour vans, résistance aux chocs et aux hydrocarbures) et d'une zone de réception du public (confort thermique, acoustique, esthétique commerciale).</li>
+                <li><em>Solution :</em> Mise en place d'une cloison coupe-feu SAD 160 (résistance EI 120 — 2 heures, affaiblissement acoustique de 61 dB avec plaques Lisaflam® HD) et choix de revêtements de sol différenciés selon les zones d'usage.</li>
+                <li><em>Défi :</em> Intégrer une mezzanine fonctionnelle (2 bureaux de direction, espace détente, kitchenette, local reprographie) dans un volume contraint de type cellule artisanale avec charpente métallique existante, tout en conservant une circulation fluide.</li>
+                <li><em>Solution :</em> Conception d'un escalier droit balancé à faible emprise, positionné dans l'angle mort de la zone d'accueil, exploitant la hauteur libre disponible de 276,39 cm sous plafond à l'étage pour le passage des réseaux en faux-plafond.</li>
+            </ul>
+
+            <p><strong>Progression & Application Professionnelle :</strong></p>
+            <ul style="margin-left: 20px;">
+                <li>Maîtrise de la lecture des plans de charpente métallique et identification des éléments structurels secondaires (goussets, poutres au vent, pannes sablières, faitières et courantes, baïonnettes et lisses d'acrotère).</li>
+                <li>Capacité à produire un dossier complet de type "clé en main" — plans, vues 3D, notice technique et estimatif — à remettre directement à un client professionnel, répondant ainsi aux attentes d'une mission de maîtrise d'œuvre réelle.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BLOC 2 : COMPÉTENCES & QUALITÉS -->
+    <div class="carte-projet">
+        <div class="carte-texte">
+            <h3>⚙️ Compétences & Qualités acquises</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Lecture de plans techniques complexes</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Exploitation des plans architecturaux, de charpente métallique et du CCTP pour identifier l'ensemble des solutions constructives d'un bâtiment industriel.</li>
+                <li><strong>Conception architecturale & DAO</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Production de plans d'aménagement cotés et légendés multi-échelles (1/50 et 1/100), coupe longitudinale et vues 3D à destination d'un client.</li>
+                <li><strong>Technologie du bâtiment</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Identification et justification des solutions constructives : ossature métallique, plancher collaborant, bardage double peau, cloisons Placostil®, dalles Gyptone® Activ'Air®.</li>
+                <li><strong>Chiffrage et métré</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Quantitatif et estimatif détaillé par corps d'état (4 lots, 59 577,05 € HT) à partir des bases de prix BATIPRIX.</li>
+                <li><strong>Travail en binôme</strong> - <em>Niveau 3 (Bonne maîtrise)</em> : Organisation et répartition efficace des tâches avec Martin Coreau pour la production d'un dossier complet dans le cadre de 4 séances de TD de 4 heures.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BLOC 3 : LIVRABLES ET ANNEXES -->
+    <div class="carte-projet">
+        <div class="carte-texte">
+            <h3>📂 Mes Livrables & Annexes</h3>
+            <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                <li>Rapport technique de 11 pages : note de synthèse des modes constructifs, solutions par lot (plâtrerie, plafond, sol, peinture), description détaillée des espaces (RDC, garage, R+1) et vues 3D de chaque zone.</li>
+                <li>Plan de masse de la cellule A9 — Annexe 1 (échelle 1/100), coté et légendé.</li>
+                <li>Vues en plan RDC et R+1 de la cellule A9 — Annexe 2 (échelle 1/50), cotées et légendées.</li>
+                <li>Coupe longitudinale AA — Annexe 3 (échelle 1/50), cotée.</li>
+                <li>Étude quantitative et estimative détaillée par corps d'état (total : 59 577,05 € HT).</li>
+            </ul>
+            <a href="TON_LIEN_DRIVE_ICI" target="_blank" class="bouton-moderne">📄 Consulter mon dossier (PDF)</a>
+        </div>
+        <div class="carte-image">
+            <img src="TON_IMAGE_SAE201_ICI.png" alt="Vue en plan de la cellule A9 - Espace Six Croix, Donges">
+        </div>
+    </div>
+</section>
+
+        <section id="sae202" class="section-contenu page-masquee"><h2 class="titre-section">SAE 2.02 - Voiries et VRD</h2></section>
+        
+        <section id="sae203" class="section-contenu page-masquee"><h2 class="titre-section">SAE 2.03 - Relevé complexe</h2></section>
+        
+        <section id="sae204" class="section-contenu page-masquee"><h2 class="titre-section">SAE 2.04 - Calcul des sollicitations</h2></section>
+        
+        <section id="sae205" class="section-contenu page-masquee"><h2 class="titre-section">SAE 2.05 - Performance d'isolation</h2></section>
+        
+        <section id="sae206" class="section-contenu page-masquee"><h2 class="titre-section">SAE 2.06 - Planification de travaux</h2></section>
+        
+        <section id="sae207" class="section-contenu page-masquee"><h2 class="titre-section">SAE 2.07 Analyse Environnementale</h2>
+            <p class="intro-section">Analyse de cycle de vie et formulation de bétons à faible impact environnemental.</p>
+
+            <div class="carte-projet">
+                <div class="carte-texte">
+                    <h3>Expérimentation et Formulation</h3>
+                    <p>Dans le cadre de cette SAÉ, nous avons réalisé des essais de compression sur différentes formulations de béton. Le travail s'est concentré sur un béton CEM III intégrant 30% de sable recyclé afin d'analyser sa compacité et de comparer sa résistance avec une formulation CEM I classique.</p>
+                    
+                    <a href="LIEN_GOOGLE_DRIVE_DU_PDF" target="_blank" class="bouton-moderne">📄 Voir le rapport d'essais</a>
+                </div>
+                <div class="carte-image">
+                    <img src="https://via.placeholder.com/600x400/222222/FFD700?text=Ajoute+ton+image+ImgBB+ici" alt="Essais béton">
+                </div>
+            </div>
+        </section>
+        
+        <section id="stage1" class="section-contenu page-masquee"><h2 class="titre-section">Stage de 1ère Année</h2></section>
+
+        <section id="contact" class="section-contenu page-masquee">
+
+    <div class="hero-header">
+        <h1>Théophile Chenu</h1>
+        <h2 class="sous-titre">BUT Génie Civil & Construction Durable</h2>
+
+        <p style="margin-top:20px;">
+            Étudiant passionné par le bâtiment, les travaux publics
+            et la conduite de chantier.
+        </p>
+
+        <a href="CV_Theophile_Chenu.pdf"
+           target="_blank"
+           class="bouton-moderne">
+           📄 Télécharger mon CV
+        </a>
+    </div>
+
+    <br>
+
+    <div class="carte-projet stats-cv">
+
+        <div class="stat-cv">
+            <h2>3</h2>
+            <p>Expériences</p>
+        </div>
+
+        <div class="stat-cv">
+            <h2>14</h2>
+            <p>SAÉ réalisées</p>
+        </div>
+
+        <div class="stat-cv">
+            <h2>2028</h2>
+            <p>Fin du BUT</p>
+        </div>
+
+    </div>
+
+    <div class="carte-projet">
+
+        <div class="carte-texte">
+
+            <h3>💼 Parcours professionnel</h3>
+
+            <div class="timeline">
+
+                <div class="timeline-item">
+                    <h4>Les Rénovateurs Bretons</h4>
+                    <p style="color:#FFD700;"><em>Mai - Juin 2026</em></p>
+                    <p>Second œuvre, isolation, placoplâtre, SAV et relation client.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>KERLEROUX</h4>
+                    <p style="color:#FFD700;"><em>Avril 2026</em></p>
+                    <p>Travaux Publics, réseaux AEP, assainissement et maçonnerie.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Maison Pour Tous Saint-Pierre</h4>
+                    <p style="color:#FFD700;"><em>Aout 2025 et Décembre 2025</em></p>
+                    <p>Animation et encadrement de groupes.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="carte-projet">
+
+        <div class="carte-texte">
+
+            <h3>⚙️ Compétences</h3>
+
+<div class="carte-projet">
+
+    <div class="carte-texte">
+
+        <h4 style="color:#FFD700;">🏗️ Bâtiment & Travaux Publics</h4>
+
+        <div class="skills">
+            <span class="skill">Préparation de chantier</span>
+            <span class="skill">Lecture de plans</span>
+            <span class="skill">Travaux Publics</span>
+            <span class="skill">Bâtiment</span>
+            <span class="skill">Réseaux VRD</span>
+            <span class="skill">Topographie</span>
+        </div>
+
+        <br>
+
+        <h4 style="color:#FFD700;">📐 Études & Conception</h4>
+
+        <div class="skills">
+            <span class="skill">AutoCAD</span>
+            <span class="skill">DAO</span>
+            <span class="skill">Dimensionnement</span>
+            <span class="skill">Métré</span>
+            <span class="skill">Études techniques</span>
+        </div>
+
+        <br>
+
+        <h4 style="color:#FFD700;">💻 Outils numériques</h4>
+
+        <div class="skills">
+            <span class="skill">Excel</span>
+            <span class="skill">Word</span>
+            <span class="skill">PowerPoint</span>
+            <span class="skill">Mensura</span>
+        </div>
+
+        <br>
+
+        <h4 style="color:#FFD700;">🤝 Qualités professionnelles</h4>
+
+        <div class="skills">
+            <span class="skill">Organisation</span>
+            <span class="skill">Travail en équipe</span>
+            <span class="skill">Adaptabilité</span>
+            <span class="skill">Autonomie</span>
+            <span class="skill">Rigueur</span>
+        </div>
+
+    </div>
+
+</div>
+
+        </div>
+
+    </div>
+
+    <div class="carte-projet">
+
+        <div class="carte-texte">
+
+            <h3>🎓 Formation</h3>
+
+            <ul style="margin-left:20px;">
+                <li>BUT Génie Civil & Construction Durable (2025-2028)</li>
+                <li>Baccalauréat Général - Mathématiques & Physique-Chimie</li>
+                <li>BAFA</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="carte-projet">
+
+        <div class="carte-texte" style="text-align:center;">
+
+            <h3>📬 Contact</h3>
+
+            <p>📍 Brest, Bretagne</p>
+
+            <br>
+
+            <p>📧 thc070907@gmail.com</p>
+
+            <br>
+
+            <p>📞 07 63 75 00 82</p>
+
+            <br>
+
+            <a href="https://www.linkedin.com/in/th%C3%A9ophile-chenu-0612853a0/"
+               target="_blank"
+               class="bouton-moderne">
+               LinkedIn
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+    </div>
+
+    <script>
+        function changerPage(idPageCible) {
+            let toutesLesPages = document.querySelectorAll('.section-contenu');
+            toutesLesPages.forEach(function(page) {
+                page.classList.remove('page-active');
+                page.classList.add('page-masquee');
+            });
+            let pageCible = document.getElementById(idPageCible);
+            if(pageCible) {
+                pageCible.classList.remove('page-masquee');
+                pageCible.classList.add('page-active');
+            }
+        }
+    </script>
+
+</body>
+</html>
