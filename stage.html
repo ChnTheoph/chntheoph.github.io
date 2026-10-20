@@ -1,0 +1,287 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Stage bâtiment Brest</title><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: site with a top nav, a map of the Brest area (communes drawn from IGN contours, red pins), then filterable ranked company cards and an advice section */
+:root{
+  --bg:#f2f3f1; --card:#ffffff; --fg:#1b2124; --muted:#5b666c; --line:#d6dbd8;
+  --accent:#b8661b; --accent-bg:#f6e8d6;
+  --sea:#cfe0ea; --land:#f7f6f1; --land-line:#b9c0bc; --pin:#d62828; --pin-ring:#ffffff; --home:#1d4e89;
+  --ok:#2f7a4f; --ok-bg:#e1f0e6; --far:#9a3b2f; --far-bg:#f6e2de;
+  --display:"Archivo Narrow","Arial Narrow",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141819; --card:#1d2326; --fg:#e6ebe8; --muted:#9aa6ab; --line:#2f373b;
+  --accent:#e39c55; --accent-bg:#3a2a18;
+  --sea:#1b2c38; --land:#252b2c; --land-line:#465054; --pin:#ff5252; --pin-ring:#141819; --home:#7fb3f0;
+  --ok:#7ccb9c; --ok-bg:#1c3326; --far:#ec8c7e; --far-bg:#3c211c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141819; --card:#1d2326; --fg:#e6ebe8; --muted:#9aa6ab; --line:#2f373b;
+  --accent:#e39c55; --accent-bg:#3a2a18;
+  --sea:#1b2c38; --land:#252b2c; --land-line:#465054; --pin:#ff5252; --pin-ring:#141819; --home:#7fb3f0;
+  --ok:#7ccb9c; --ok-bg:#1c3326; --far:#ec8c7e; --far-bg:#3c211c; color-scheme:dark}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
+.in{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header.top .in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;flex-wrap:wrap}
+.brand{font:700 1.1rem var(--display);letter-spacing:.02em}
+.brand span{color:var(--accent)}
+nav{display:flex;gap:14px;flex-wrap:wrap}
+nav a{color:var(--fg);text-decoration:none;font-weight:600;font-size:.92rem}
+nav a:hover{color:var(--accent)}
+.hero .in{padding-block:28px 8px}
+h1{font:700 clamp(1.7rem,4.5vw,2.4rem)/1.08 var(--display);margin:0 0 8px;text-wrap:balance}
+.lede{color:var(--muted);margin:0;max-width:64ch}
+section{scroll-margin-top:64px}
+h2.sec{font:700 1.3rem var(--display);margin:30px 0 10px;text-transform:uppercase;letter-spacing:.03em}
+.mapbox{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mapwrap{overflow-x:auto}
+svg.map{display:block;width:100%;min-width:560px;height:auto;background:var(--sea)}
+.commune{fill:var(--land);stroke:var(--land-line);stroke-width:1.2}
+.clabel{font:600 15px var(--body);fill:var(--muted);text-anchor:middle;pointer-events:none}
+.clabel.big{font:700 22px var(--display);fill:var(--fg);letter-spacing:.04em}
+.sealabel{font:italic 600 16px var(--body);fill:var(--muted);opacity:.8}
+.pin{cursor:pointer}
+.pin circle{fill:var(--pin);stroke:var(--pin-ring);stroke-width:2.5}
+.pin text{font:700 11px var(--body);fill:#fff;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.pin.sel circle{stroke:var(--fg);stroke-width:4}
+.pin.dim{opacity:.18}
+.pin:focus-visible circle{stroke:var(--accent);stroke-width:4}
+.home rect{fill:var(--home)}
+.home text{font:700 14px var(--body);fill:var(--home)}
+.mapinfo{border-top:1px solid var(--line);padding:12px 16px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;min-height:58px}
+.mapinfo b{font:700 1.05rem var(--display)}
+.mapinfo small{display:block;color:var(--muted)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;padding:0 16px 12px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--pin);margin-right:6px;vertical-align:-1px}
+.legend i.h{border-radius:2px;background:var(--home)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 18px}
+.chip{font:600 .85rem var(--body);border:1px solid var(--line);background:var(--card);color:var(--fg);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tier{margin:26px 0 10px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--fg);padding-bottom:4px}
+.tier h3{font:700 1.1rem var(--display);margin:0;letter-spacing:.02em;text-transform:uppercase}
+.tier span{color:var(--muted);font-size:.85rem}
+.list{display:grid;gap:10px}
+.co{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:2.4rem 1fr;gap:4px 12px;scroll-margin-top:72px}
+.co.sel{border-color:var(--pin);box-shadow:0 0 0 2px var(--pin) inset}
+.rk{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--pin);color:#fff;font:700 1rem/2.1rem var(--display);text-align:center;font-variant-numeric:tabular-nums}
+.rk.off{background:var(--muted)}
+.co>div{min-width:0}
+.nm{font:700 1.15rem var(--display);margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:5px 0 7px}
+.tag{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--accent-bg);color:var(--accent)}
+.acc-proche{background:var(--ok-bg);color:var(--ok)}
+.acc-loin{background:var(--far-bg);color:var(--far)}
+.what{margin:0 0 8px;font-size:.95rem}
+.addr{font-size:.92rem;margin-bottom:6px}
+.addr b{font-weight:600}
+.ppl{display:grid;gap:6px;margin:6px 0}
+.p{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.9rem;overflow-wrap:anywhere}
+.p .who{font-weight:600}
+.p .who small{font-weight:400;color:var(--muted)}
+.p .v{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:2px}
+.p .v span{font-variant-numeric:tabular-nums}
+.p .note{color:var(--muted);font-size:.82rem;margin-top:2px}
+.copy{font:600 .75rem var(--body);border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:4px;padding:1px 7px;cursor:pointer}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.btn{font:600 .82rem var(--body);border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:6px;padding:5px 10px;cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.tip{margin-top:8px;font-size:.86rem;border-left:3px solid var(--accent);padding-left:8px;border-radius:0}
+.advice{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.advice div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.advice h3{font:700 1rem var(--display);margin:0 0 4px}
+.advice p{margin:0;font-size:.92rem;color:var(--muted)}
+footer .in{padding-block:28px 40px;color:var(--muted);font-size:.85rem}
+</style>
+
+<header class="top"><div class="in">
+  <div class="brand">STAGE <span>BÂTIMENT</span> · BREST</div>
+  <nav><a href="#carte">Carte</a><a href="#entreprises">Entreprises</a><a href="#conseils">Conseils</a></nav>
+</div></header>
+
+<div class="hero"><div class="in">
+  <h1>Entreprises de bâtiment et de rénovation autour de Brest et Plouzané</h1>
+  <p class="lede">23 entreprises classées de la plus grande à la plus petite, avec adresse exacte, contacts nominatifs quand ils existent et distance depuis Saint-Pierre. Hors génie climatique et travaux publics. Les Rénovateurs Bretons et Kerleroux sont exclus.</p>
+</div></div>
+
+<main class="in">
+  <section id="carte">
+    <h2 class="sec">Carte</h2>
+    <div class="mapbox">
+      <div class="mapwrap"><svg class="map" id="map" viewBox="140 30 810 740" role="img" aria-label="Carte des communes autour de Brest avec les entreprises en points rouges numérotés"></svg></div>
+      <div class="legend"><span><i></i>Entreprise (numéro du classement)</span><span><i class="h"></i>Saint-Pierre (chez toi)</span><span>Fond : limites des communes (IGN)</span></div>
+      <div class="mapinfo" id="info" aria-live="polite"><div><b>Touche un point rouge</b><small>pour voir l'entreprise et sa fiche</small></div></div>
+    </div>
+  </section>
+
+  <section id="entreprises">
+    <h2 class="sec">Entreprises</h2>
+    <div class="chips" role="group" aria-label="Filtrer">
+      <button class="chip" id="f-all" aria-pressed="true" data-f="all">Toutes</button>
+      <button class="chip" id="f-eg" aria-pressed="false" data-f="eg">Entreprise générale</button>
+      <button class="chip" id="f-go" aria-pressed="false" data-f="go">Gros œuvre</button>
+      <button class="chip" id="f-reno" aria-pressed="false" data-f="reno">Rénovation</button>
+      <button class="chip" id="f-so" aria-pressed="false" data-f="so">Plâtrerie</button>
+      <button class="chip" id="f-proche" aria-pressed="false" data-f="proche">À moins de 6 km</button>
+      <button class="chip" id="f-contact" aria-pressed="false" data-f="contact">Avec un contact nommé</button>
+    </div>
+    <div id="out"></div>
+  </section>
+
+  <section id="conseils">
+    <h2 class="sec">Conseils</h2>
+    <div class="advice">
+      <div><h3>Par où commencer</h3><p>Vise d'abord les PME et les agences locales (n° 4, 7, 8, 9) : un conducteur de travaux y prend plus facilement un stagiaire que dans un siège de groupe.</p></div>
+      <div><h3>Contact nommé</h3><p>Quand un nom est donné (dirigeant, gérant), écris-lui directement et mets le secrétariat en copie. Relance par téléphone une semaine après.</p></div>
+      <div><h3>Grands groupes</h3><p>Postule sur leur site carrières en filtrant « Brest », puis appelle l'agence pour demander le nom du responsable travaux.</p></div>
+      <div><h3>Sans permis</h3><p>Vérifie le trajet sur bibus.fr : Brest, Guilers, Bohars, Gouesnou, Guipavas et Le Relecq-Kerhuon sont desservis. Plabennec demande un car régional.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="in">Adresses vérifiées sur les registres (Pappers, Sirene), les sites des entreprises et l'annuaire PagesJaunes, puis placées avec la Base Adresse Nationale. Effectifs : registres, tranche la plus récente. « Groupe » = effectif du groupe entier, pas de l'agence. Mise à jour : octobre 2026.</div></footer>
+
+<script>
+const COMMUNES=`Bohars|527,403|M518 483l-19 -28 -4 -23 -11 -15 2 -4 -6 -12 7 -13 -15 -20 4 -8 21 -3 0 -17 19 11 6 -9 -5 -19 26 1 0 13 21 0 16 6 -4 3 -10 -3 -6 4 3 16 13 5 7 13 -8 1 1 10 -9 16 -5 -1 -9 16 -10 3 2 15 -9 12 -2 23 -16 7z
+Bourg-Blanc|592,147|M699 134l10 16 -27 16 -13 3 9 5 3 9 -4 1 2 7 -10 2 1 15 -12 -6 -6 16 -4 1 -20 -14 -24 1 16 15 21 32 -1 9 -10 8 -6 0 -3 13 -9 3 -3 19 -5 -1 -2 -12 -6 -4 1 -6 -10 3 1 13 -10 1 -9 -20 7 -25 -6 -10 -29 0 -12 10 -2 -12 4 -7 -2 -7 4 -3 -4 -4 3 -6 -20 2 -2 -5 9 -9 -1 -7 4 -13 -16 -15 3 -22 3 -1 -3 -2 2 -6 -6 0 -4 -17 3 -7 11 1 10 -6 -6 -7 -15 -6 -2 -9 -6 -2 -6 -11 1 -14 -15 -10 12 -23 13 1 12 -9 9 1 9 -30 8 10 10 -2 5 6 9 2 3 18 7 4 4 1 4 -5 -2 -4 6 -8 21 20 2 7 13 3 6 6 8 -2 6 18 6 1 5 7 -2 12 9 8 5 -1 15 15 -8 5 3 8 -6 0 1 15 -5 4 35 -3z
+Brest|585,486|M759 536l3 13 -3 2 10 0 -8 1 0 10 8 -1 -9 4 -5 22 -14 12 -11 4 -9 -3 -2 -2 8 -11 -10 -8 -11 15 8 -15 -3 -2 -10 14 9 -17 -9 -4 -10 12 7 -14 -8 10 -7 -2 -13 20 -8 1 -3 -2 2 -9 -8 1 -3 16 -6 -16 6 -9 -7 9 -11 3 1 6 -5 1 -1 -8 -3 6 -4 -3 1 5 -6 -2 9 13 -11 -11 -20 18 -3 0 5 -6 -5 5 -20 -10 8 9 -10 -7 7 10 -10 3 -14 13 3 4 -3 -4 -27 27 -3 -3 2 4 13 9 16 -5 5 -9 -4 9 8 -3 4 -8 -3 8 47 -15 -74 24 -16 -14 -16 10 -9 23 -11 2 -33 -20 -11 4 -11 -4 -20 -11 -2 -9 2 -12 5 -4 0 -13 10 2 -3 -9 4 -3 -9 -44 -14 -19 5 -16 14 -6 20 5 10 -17 12 -2 3 -5 3 2 21 3 15 -11 17 0 -3 -19 16 -7 2 -23 9 -12 -2 -15 9 -2 10 -17 5 1 9 -16 -1 -10 8 -1 -7 -13 -13 -5 -3 -16 6 -4 8 3 6 -3 -19 -8 -18 2 0 -13 -11 0 0 -5 13 -1 3 -10 4 -1 -1 -15 29 14 -1 -6 10 -4 -2 -11 10 -3 -1 6 6 4 1 21 10 6 -1 11 15 11 5 -1 -8 18 -7 3 -2 6 29 7 1 8 10 14 0 14 19 -9 11 10 4 13 3 -3 9 10 6 1 6 20 -9 -4 -14 6 1 13 6 7 18 5 3 9 -4 5 5 10 28 22 8 12 4 -1z
+Coat-Méal|470,89|M510 210l-15 9 -8 -23 -6 -1 -10 8 -13 -6 3 -16 -14 -14 -14 -35 4 -18 -5 -1 -8 -16 -19 -3 28 -8 14 0 -13 -15 3 -15 -5 -9 8 -4 2 -7 6 -1 -2 -11 29 -17 10 0 1 -19 13 -14 0 -6 6 0 2 -5 8 -3 0 8 8 -2 11 16 -12 37 -9 -1 -12 9 -13 -1 -12 23 15 10 -1 14 6 11 6 2 2 9 15 6 6 7 -10 6 -11 -1 -3 7 4 17 6 0 -2 6 3 2 -3 1 -3 22 16 15 -3 20 -9 7z
+Gouesnou|686,332|M604 304l5 1 3 -19 9 -3 0 -10 19 -11 -2 -15 3 3 9 -8 11 -3 2 18 5 6 9 2 -1 26 29 3 13 6 15 -1 31 -19 3 3 -7 30 3 -4 6 4 -3 22 -10 1 -5 -6 -5 -1 -8 8 3 6 -5 21 4 7 -8 7 8 11 -16 6 -8 11 -7 -1 -20 19 -4 -13 -11 -10 -19 9 0 -14 -14 -25 -26 -4 2 -6 7 -3 8 -18 -3 2 -17 -12 1 -11 -10 -6 1 -9z
+Guilers|418,445|M401 549l-22 -8 2 -27 -4 1 -2 -10 -19 -15 -6 -11 -9 -1 2 -5 -8 -7 3 -1 -4 -11 2 -8 -15 -14 -7 -21 28 -13 30 -22 11 -3 1 -15 8 3 9 -10 21 -12 4 5 10 -2 14 10 11 22 7 9 11 -4 8 9 -7 10 6 15 -2 4 11 15 4 23 19 28 4 17 -18 2 -15 11 -24 -5 -3 5 -12 2 -10 17 -13 -5 -13 1 -8 5 -5 16z
+Guipavas|864,398|M759 536l-4 1 -8 -12 -28 -22 -5 -10 4 -5 -3 -9 -18 -5 -6 -7 2 -4 -4 -8 15 -7 9 4 -6 -20 -6 -1 -9 -10 17 -16 7 1 8 -11 16 -6 -8 -11 8 -7 -4 -7 5 -21 -3 -6 8 -8 6 1 4 6 10 -1 3 -22 -6 -4 -3 4 7 -30 3 4 14 -1 2 -4 13 4 5 -2 0 -7 14 1 6 -5 16 3 -1 -7 11 -10 22 11 4 3 -1 7 7 -2 4 7 17 -10 -4 9 5 -2 0 7 12 18 33 -16 2 7 16 6 13 0 -1 12 7 2 3 -3 2 3 -7 22 21 8 1 5 -8 9 -2 10 7 8 3 21 8 12 -4 18 14 12 12 1 4 4 -3 1 1 10 -9 4 -15 -3 -14 11 -11 20 -12 -8 -7 2 0 -4 -3 7 -15 -7 1 6 -9 -1 -13 8 1 20 -19 6 -4 -5 1 -12 -9 -6 -1 -9 -10 -8 -7 -19 -17 -1 -5 4 -5 -10 -1 7 -19 0 -8 5 1 4 -15 5 2 4 -18 1 1 24 -13 3 -3 -7 -3 3 -1 20 11 3 -1 6 -17 -3 -13 7z
+Milizac-Guipronvel|414,237|M510 210l2 7 20 -2 -3 6 4 4 -4 3 2 7 -4 7 3 13 11 -11 29 0 5 5 -6 30 11 27 -29 -14 1 15 -4 1 -3 10 -13 1 0 5 -15 -1 5 19 -6 9 -19 -11 2 14 -3 4 -20 2 -4 8 6 12 -10 3 -18 -31 -14 -10 -10 2 -4 -5 -21 12 -9 10 -8 -3 -1 15 -21 9 -25 19 -17 5 -2 -13 -23 1 -9 -6 7 -14 1 -19 -1 -3 -13 6 3 -44 -22 2 1 8 -5 0 -8 -26 20 3 13 5 7 -28 -2 -28 -15 -13 20 -20 -9 -18 2 -12 13 -10 26 16 18 0 17 -19 -1 -6 4 -3 -2 -11 -4 -2 5 -14 -3 -21 5 -6 -5 -1 7 -13 -5 -8 1 -9 -6 3 -4 -8 7 -4 9 3 8 -6 13 9 6 20 6 1 4 -4 20 3 1 6 13 14 -5 15 9 17 -1 5 6 13 14 14 -3 16 13 6 10 -8 6 1 8 23 15 -9z
+Kersaint-Plabennec|945,182|M988 117l2 3 -7 4 -2 26 -6 2 -2 12 2 7 19 13 0 4 -13 5 3 5 -6 3 4 9 10 -3 11 10 -3 4 8 3 -3 7 3 22 -7 12 -6 5 -13 1 -19 14 -47 22 -12 -18 0 -7 -5 2 4 -9 -17 10 -4 -5 21 -7 -6 -24 2 -11 -8 -11 5 -28 2 -5 3 4 10 -7 2 4 7 -3 -3 -9 13 -8 -12 -22 -1 -21 6 -8 0 3 4 -2 -1 -5 10 11 9 1 5 6 -4 -22 4 0 9 -13 -10 -10 -7 -29 23 -5 7 19 1 17 15 22z
+Lanrivoaré|221,247|M188 344l-5 -10 -13 -3 -7 4 -12 -11 -2 -16 12 -10 0 -36 8 -10 1 -10 7 -8 5 2 3 -4 2 -18 8 -1 -2 -9 -8 -1 -1 -18 16 -5 -1 -7 8 1 11 -10 5 7 9 -3 5 -8 1 -19 10 -1 18 -6 3 11 16 21 -2 33 9 18 -20 19 14 12 4 12 -5 38 -3 8 -33 -8 8 26 -4 3 2 12 -9 20 -5 -5 1 -8 -12 9 -21 2 -13 -1 -8 -12z
+Locmaria-Plouzané|177,635|M91 595l0 -4 -5 0 3 -5 -8 1 15 -17 -4 -20 11 -13 3 0 1 9 4 -2 -2 -6 6 -2 4 7 7 -7 5 20 10 0 14 -15 -2 -7 8 -2 0 -4 6 1 -1 -17 45 -12 21 46 -7 20 1 6 11 6 -7 16 8 2 8 12 15 11 1 11 -7 10 10 8 -3 9 2 18 9 12 -3 21 -12 20 0 21 -4 8 6 9 -11 4 -11 -4 3 -4 -7 -1 2 -3 -4 1 3 -5 -3 -8 -6 5 -5 -3 2 -4 -9 -3 -2 -10 -9 11 1 -4 -20 2 -22 -21 -10 -2 -3 -6 -15 -1 -10 -8 -14 -2 -6 -11 4 -14 -5 -15 14 -20 2 -15 -3 -9 4 -13 -7 -1 -14 -11 -8 4z
+Plabennec|782,115|M638 247l-18 -26 -16 -15 24 -1 20 14 4 -1 6 -16 12 6 -1 -15 10 -2 -2 -7 4 -1 -3 -9 -9 -5 13 -3 27 -16 -13 -24 4 -12 -2 -17 12 -18 -7 -8 1 -11 4 1 8 -9 1 -11 7 -9 25 -10 4 -12 6 3 4 -4 6 -7 -4 -8 19 -1 -2 -10 9 -7 -11 -6 4 -5 18 -7 14 -18 13 -9 16 -1 -1 4 -8 1 0 4 -5 -2 -3 9 8 14 1 20 14 -2 3 4 -5 11 1 4 4 -1 4 14 -2 -2 -8 7 6 2 4 8 -2 6 6 4 6 -1 0 -6 23 2 -1 6 5 0 -1 6 7 3 -10 9 5 13 8 -3 6 5 10 -3 -1 -8 14 2 4 -3 8 13 4 23 10 10 -2 6 -11 7 4 22 -5 -6 -9 -1 -9 -11 0 5 -7 2 -3 5 1 21 12 22 -13 8 3 9 -7 3 -2 -4 -10 7 -3 -4 1 4 -5 1 2 6 -5 22 8 11 -2 11 6 24 -28 7 1 -7 -27 -14 -10 10 1 7 -16 -3 -1 4 -19 0 0 7 -5 2 -13 -4 -2 4 -14 1 -6 -7 -18 9 -6 8 -22 3 -13 -6 -29 -3 1 -26 -9 -2 -5 -6 -2 -18 -11 3 -9 8 -3 -3z
+Plougastel-Daoulas|873,669|M681 823l5 2 -4 4 -1 -6zM987 512l7 14 7 -6 -1 4 6 3 -6 18 8 12 -2 13 4 7 9 2 3 -4 -3 -5 12 0 2 3 -6 10 4 7 16 -2 2 26 -10 8 -10 24 2 5 12 -1 16 7 5 12 -4 11 -23 21 -7 14 -9 0 -5 8 -14 7 -7 -1 3 6 6 -3 1 7 -13 11 -1 -4 -10 -4 -5 0 -2 7 -4 -1 -3 -9 14 -20 13 -7 -3 -3 12 -10 4 -13 -25 26 -8 -3 4 4 -3 4 -37 22 -6 13 3 7 -5 7 1 11 6 0 -5 9 -13 9 0 5 4 -2 3 7 -9 10 -26 5 -27 -3 -25 9 -24 -4 -14 0 12 -12 15 -29 8 -2 1 -8 13 -10 9 -4 10 2 5 -10 -3 4 -25 -2 -2 5 -17 10 4 4 -8 -6 -11 3 -1 6 -12 6 -5 9 -25 7 -6 8 -11 0 -25 14 -34 -5 3 -5 10 0 15 -8 2 -20 -6 -7 29 -19 0 -9 -9 1 -5 -5 4 -8 -5 -11 7 -8 0 -7 16 -9 -4 -17 6 -2 2 -10 11 -8 28 -12 10 -9 14 -25 7 -4 1 -14 20 -8 10 -13 22 -9 18 -15 6 1 33 -13 8 -18 8 -7 10 -5 23 3z
+Plougonvelin|-14,707|M91 595l8 -4 14 11 7 1 -4 13 3 9 -2 15 -14 20 5 15 -4 14 5 9 -6 -1 -8 10 -19 -6 -3 6 -9 1 -13 11 -7 19 6 1 -1 10 6 2 -4 12 7 5 -11 8 -9 -1 -5 16 -6 6 -10 -4 1 4 -9 7 -4 -5 2 -3 -14 5 -6 -3 -12 2 -7 -5 0 -5 -10 0 -1 -4 -4 4 -2 -3 0 4 -9 6 -1 -5 -2 4 -3 -2 -3 8 -22 -2 -2 6 -30 2 -3 -4 -8 2 1 -4 -3 3 1 -3 -10 -2 5 -20 43 -21 5 1 5 -7 10 1 13 -10 -4 0 -4 -15 -11 -8 20 -6 -6 -20 15 -8 -4 -3 6 -8 29 -4 17 -19 30 -1 6 -10 26 -17 9 -12 14 -4 10 -14z
+Ploumoguer|30,540|M-1 653l4 -32 -6 -4 11 -13 13 -6 -8 -23 -16 9 -10 0 -17 20 -19 11 -21 31 0 6 -2 -8 4 -9 -6 -15 -12 9 -5 -3 -5 -8 2 -9 -12 -4 -1 3 -14 -9 9 -11 -6 -5 -15 1 -6 -16 -12 -12 0 -5 8 -4 -3 -4 4 -16 -3 0 -2 -12 5 -15 -5 -10 15 -18 6 -18 6 1 12 -8 20 0 2 -4 12 -1 14 -10 7 2 12 -4 32 9 1 7 3 -7 10 1 2 -3 8 2 9 10 18 -2 22 5 6 -3 -2 -13 46 -11 16 5 1 8 12 -3 2 6 13 0 5 -2 -2 -5 8 2 9 -5 9 6 -4 10 4 15 19 32 5 2 -2 5 -43 11 1 17 -6 -1 0 4 -8 2 2 7 -14 15 -10 0 -5 -20 -7 7 -4 -7 -6 2 2 6 -4 2 -1 -9 -3 0 -11 13 5 17 -8 14 -7 3 2 4 5 -2 -2 6 5 0 -11 17 -14 4 -9 12 -26 17 -6 10 -27 1z
+Plouvien|667,-12|M699 134l-35 3 5 -4 -1 -15 6 0 -3 -8 8 -5 -15 -15 -5 1 -9 -8 2 -12 -5 -7 -6 -1 -4 -16 -5 -3 -5 3 -6 -6 -13 -3 -2 -7 -21 -20 -8 17 -11 -5 -3 -18 -9 -2 -5 -6 -10 2 -8 -12 3 -5 -4 -9 -9 -8 -6 3 -1 -20 -10 -12 0 -15 7 -2 -8 -9 3 -8 9 0 17 10 9 8 -2 7 13 -5 10 14 9 4 2 -2 -9 -15 0 -13 13 2 0 -3 16 -2 5 4 24 3 6 6 14 -6 8 -25 11 -11 5 1 8 -13 2 2 13 -13 -2 -12 21 -5 8 7 4 -6 5 6 9 0 4 6 9 -2 18 10 16 2 4 8 19 4 5 9 -10 25 22 16 10 2 -1 6 -11 6 -17 21 -22 12 11 6 -9 7 2 10 -19 1 4 8 -6 7 -4 4 -6 -3 -4 12 -25 10 -7 9 -1 11 -8 9 -4 -1 -1 11 7 8 -13 22 2 33z
+Plouzané|325,621|M341 478l9 1 6 11 16 11 5 14 4 -1 -2 27 22 8 14 19 9 44 -4 3 3 9 -10 -2 0 13 -7 9 2 16 30 14 12 12 -10 -6 -11 22 -4 -6 -11 -2 -8 6 0 12 -8 1 -4 9 -19 1 -7 5 -13 -2 2 5 -3 3 -27 10 -9 12 -8 1 -15 11 -8 -3 -7 6 -3 -10 -15 5 -7 -3 3 -35 12 -20 3 -16 -9 -17 -2 -18 3 -9 -10 -8 8 -16 -25 -28 -8 -2 7 -16 -6 -6 -4 1 -2 -7 7 -20 -10 -28 -6 -9 -3 1 -2 -14 -5 -2 -7 -13 11 -2 5 11 11 -8 2 -14 12 -1 50 8 6 21 3 0 19 -11 8 1 15 -8z
+Le Relecq-Kerhuon|846,507|M912 519l-19 16 -12 -7 -14 3 -23 30 -16 -3 -38 -25 0 -7 -11 -3 2 -18 1 -5 4 7 13 -3 -1 -24 18 -1 -2 -4 15 -5 -1 -4 8 -5 19 0 1 -7 5 10 5 -4 17 1 7 19 10 8 1 9 9 6 2 16z
+Saint-Divy|1031,310|M949 291l33 -20 13 -1 12 -13 1 -13 19 1 8 -4 6 17 15 2 5 -3 11 5 8 12 12 0 11 13 0 9 7 10 -3 10 5 19 -33 -3 -7 1 -15 12 -7 -1 -7 -8 -16 2 -3 11 -4 0 10 9 -16 8 -2 9 -9 6 -7 -15 10 -16 -22 -10 7 -22 -2 -3 -3 3 -7 -2 1 -12 -13 0 -16 -6 -2 -7z
+Saint-Renan|262,405|M341 478l-15 8 -8 -1 -19 11 -3 0 -6 -21 -50 -8 -12 1 -2 14 -11 8 -5 -11 -8 3 -15 -20 -4 -12 7 -18 0 -17 -5 -7 1 -44 -3 -9 5 -11 8 12 13 1 21 -2 12 -9 -1 8 5 5 9 -20 -2 -12 9 -3 -1 -8 22 -2 -3 44 13 -6 1 3 -1 19 -7 14 9 6 23 -1 2 13 -6 5 2 10 5 11 15 14 -2 8 4 11 -3 1 8 7 -2 5z
+Tréouergat|301,137|M258 104l 6 6 1 -2 8 5 5 -2 6 2 11 -4 3 -8 7 9 10 1 5 -5 7 -2 3 -6 4 3 4 -1 3 -11 -3 -4 5 -1 5 -5 6 11 4 1 2 -2 5 8 -2 8 -3 -1 -2 6 5 1 -5 6 2 20 -4 15 4 2 2 12 -4 2 -1 11 -15 11 0 3 -2 -2 -6 3 -10 -1 0 -2 -26 -14 -8 9 -5 1 -2 -7 2 -14 -16 -21 -3 -11 -23 8 -5 -1 -1 -13 3 -10 2 -2 9 0 6 -7 1 -5z
+Plourin|89,97|M-80 54l 14 -7 16 1 -1 7 5 11 9 4 10 -8 14 12 15 5 1 -9 -4 -6 3 -2 -2 -1 0 -6 3 -13 3 1 2 -3 -1 -6 5 -5 0 -7 13 -9 4 1 9 -5 -9 -16 3 -11 3 -4 11 -1 7 -14 8 15 1 9 6 7 2 9 3 1 1 8 20 16 0 13 18 8 9 -4 12 7 4 4 -1 4 5 7 -1 5 4 5 1 9 5 2 1 3 22 13 29 2 5 7 5 -9 4 2 11 -4 -3 -6 -9 -5 -1 -3 22 -2 0 12 3 -1 6 4 13 3 -1 5 -6 7 -9 0 -2 2 -3 10 1 20 -3 17 -12 6 -5 -7 -11 10 -8 -1 1 7 -16 5 2 5 -2 0 2 5 -1 8 6 -1 4 6 0 5 -8 1 1 7 -13 -2 -23 9 -20 4 -7 -10 6 -2 -1 -4 6 2 -1 -4 -4 0 5 -4 -3 -5 3 -7 -8 1 -3 -11 1 -2 7 1 0 -4 -9 -5 -4 -7 -3 1 1 -6 -7 -6 -15 -6 3 -15 -15 1 -6 8 -1 7 -6 1 -4 13 -5 1 -3 4 -2 -12 -17 -11 -7 2 -18 -2 -22 -8 -8 6 0 7 -8 -1 -1 2 -2 -7 -5 2 3 -18 -5 -6 6 -14 8 -8 -2 -5 -13 -10 -10 -4 -2 -5 -5 -3 -14 -4 -3 -7 -8 -3 0 -6 -4 -5z
+Brélès|86,228|M185 221l -2 7 2 4 -3 4 -5 -2 -2 5 -5 3 -1 10 -8 10 -2 20 3 8 -2 12 -10 6 -8 0 0 4 -9 5 -5 0 -9 -11 -13 -6 -5 -6 -4 0 -6 -5 -6 1 -3 3 1 2 -15 0 -9 3 -9 -3 -8 2 -3 -4 -3 0 -5 -7 2 -5 -9 -4 -1 -6 3 -12 -11 -8 -2 -7 -5 0 0 -6 -3 -2 2 -4 -2 -6 -1 -8 -16 0 -2 -2 1 -13 3 -2 1 2 12 -2 5 -6 1 3 6 1 9 -4 12 -11 6 -1 2 -7 5 2 9 -1 2 -5 9 -6 2 -10 6 -1 1 -7 5 -7 10 -2 6 0 -3 15 15 6 7 6 -1 6 3 -1 4 7 9 5 0 4 -7 -1 -1 2 3 11 8 -1 -3 6 3 6 -5 3 4 1 1 4 -6 -2 1 4 -6 2 7 10 20 -4 23 -9 10 2z
+Plouarzel|-10,361|M187 437l -9 -6 -9 5 -3 -3 -5 1 2 5 -5 2 -13 0 -2 -6 -12 3 -1 -8 -6 0 -10 -5 -27 9 -19 2 2 13 -11 3 -17 -5 -15 0 -3 2 -11 -11 -18 1 -3 7 -1 -7 -22 -4 -10 -5 -12 4 -7 -2 -14 10 -12 1 -2 4 -20 0 -9 3 -3 5 -6 -1 -6 18 -8 7 -8 14 -6 -2 -2 5 -6 4 -11 1 -1 -4 5 -4 0 -3 -3 -1 -5 -10 -5 0 -2 -4 -2 3 -5 -11 -9 1 0 -7 4 -6 2 1 1 -5 3 -2 -1 -3 2 0 1 -9 -3 -2 5 -1 0 -3 2 1 3 -4 5 -17 -1 -4 7 -7 0 -5 -4 -1 0 -18 9 -12 4 1 2 -3 3 -10 -2 -5 5 1 6 -5 7 4 0 14 5 5 19 9 7 -1 -3 -12 2 0 -1 -5 6 -3 10 1 9 9 9 -1 3 -5 -3 -7 10 -19 -2 -4 -11 -3 -9 1 -3 5 -5 -1 -13 -13 -1 -4 5 -15 -1 -17 7 -4 -2 -2 1 -7 2 0 5 -10 3 0 4 5 -4 -10 4 -7 -2 -7 4 0 4 -4 6 0 2 4 2 -5 10 -3 7 2 1 7 1 -4 8 1 0 -5 12 3 -4 -7 5 0 2 -4 13 -1 7 3 3 -5 6 0 3 3 0 14 2 0 1 7 7 -1 2 7 11 8 -3 12 1 6 9 4 -2 5 11 11 7 -2 7 3 12 -3 9 1 6 -1 -1 -2 3 -3 6 -1 6 5 4 0 5 6 13 6 9 11 8 -1 6 -4 0 -4 7 0 3 7 -1 9 10 10 15 -3 9 5 3 9 -5 7 -1 8 4 4 -2 29 2 0 1 12 -2 3 5 7 0 17 -3 5z
+Plouguin|337,4|M360 89l -2 2 -4 -1 -6 -11 -5 5 -5 1 3 3 -3 12 -4 1 -4 -3 -3 6 -7 2 -5 5 -10 -1 -7 -9 -3 8 -6 3 -11 -1 -5 2 -8 -5 -1 2 -5 -6 -14 -3 -6 -4 -3 1 0 -16 3 -10 0 -6 -3 -3 -2 -9 3 -5 -1 -6 -6 -15 -8 -12 -3 -1 1 -5 -13 -13 0 -9 -8 -16 3 -6 13 4 8 -1 10 8 12 4 2 4 2 -3 -2 -26 -6 -11 -1 -9 2 -3 2 -2 9 1 -1 -3 2 3 0 -3 7 0 -1 8 2 0 5 -7 7 1 8 -7 24 -6 3 -1 2 -5 7 5 1 -7 4 -3 9 0 24 -13 30 10 9 -1 4 5 12 -2 7 2 10 6 5 12 5 5 -2 12 5 5 4 10 -1 11 6 3 -1 2 7 6 5 -4 7 11 -5 7 5 3 6 11 -16 11 -12 5 2 11 -6 1 -2 7 -8 4 5 9 -3 15 13 15 -23 2 -27 10 -4 -2 -4 -18 -7 -2 -7 -8 -8 6 -9 -3 -7 4 4 8 4 -4 2 1 -1 9z
+Le Drennec|896,-16|M944 -68l -10 15 -9 -8 -5 -1 -1 10 5 5 0 9 11 6 9 16 3 1 1 8 11 8 -10 1 -3 4 5 12 -2 5 10 6 1 4 -4 10 2 9 5 6 -21 6 -5 -7 -4 3 -14 -2 3 5 -2 3 -10 3 -6 -5 -8 3 -4 -5 -1 -8 3 -1 0 -5 7 0 0 -3 -1 -3 -6 0 2 -2 -1 -4 -5 0 1 -6 -5 -2 -14 2 -4 -2 0 6 -7 1 -5 -4 2 -6 -4 -8 -6 -2 8 -7 2 2 -4 -14 -4 1 -1 -4 3 -1 -1 -4 3 -6 -3 -4 -14 2 -1 -20 -8 -14 3 -2 0 -7 5 2 0 -4 8 -1 5 -14 6 -8 4 0 1 -7 5 -6 11 23 4 3 0 7 4 8 6 1 13 -3 1 -13 5 -2 4 -6 18 -6 -6 17 18 1 1 3z
+Saint-Thonan|1057,214|M1008 244l -3 -8 3 -12 -8 -3 3 -4 -7 -4 1 -2 -5 -4 -4 3 -6 0 -4 -9 6 -3 -3 -5 13 -5 -1 -5 -5 0 -13 -12 -2 -7 2 -12 6 -2 2 -26 7 -4 -1 -5 6 8 1 -5 8 -4 -2 -2 3 -6 7 -4 5 5 4 -1 3 2 -1 6 2 2 -3 5 10 7 4 9 5 4 -2 2 1 10 2 8 -3 3 16 12 11 4 8 15 16 9 2 -1 2 4 18 11 12 1 10 6 0 10 7 21 -2 24 -10 25 0 6 -7 4 -8 10 -4 0 -3 -9 3 -10 -4 -3 -4 -12 1 -4 -8 -11 -5 -3 -10 1 -8 -12 -7 -1 -4 -4 -5 3 -15 -2 -1 -8 -5 -9 -8 4 -19 -1z`;
+
+/* Same projection as the commune outlines: x=(lon+4.72)*cos(48.43°)*4000, y=(48.53-lat)*4000 ; 1 unit ≈ 27.8 m */
+const PX=(la,lo)=>[(lo+4.72)*0.663886*4000,(48.53-la)*4000];
+const HOME=PX(48.3790,-4.5346);
+const KM=(la,lo)=>{const p=PX(la,lo);return Math.hypot(p[0]-HOME[0],p[1]-HOME[1])*0.0278};
+
+/* t = tier, c = activity codes, ll = [lat, lon] from Base Adresse Nationale, k = contacts [who, role, kind, value, note] */
+const D=[
+ {t:1,n:"Groupe Marc (Marc SA)",c:["go","eg"],ll:[48.41826,-4.46611],a:"2 rue de Kervezennec, ZI de Kergonan, 29200 Brest",s:"≈ 1 100 pers. (groupe)",d:"Groupe brestois de BTP. Vise sa branche bâtiment (gros œuvre, entreprise générale).",k:[["Standard","Site de Brest","tel","02 98 02 30 40",""],["Site web","Offres et candidature","web","marc-sa.fr",""]],tip:"Publie ses offres de stage et d'alternance sur Hellowork et Wizbii."},
+ {t:1,n:"Bouygues Bâtiment Grand Ouest",c:["eg","go","reno"],ll:[48.38616,-4.47724],a:"305 rue Jurien de la Gravière, 29200 Brest",s:"≈ 1 160 pers. (Grand Ouest)",d:"Construction et rénovation : logement, tertiaire, ouvrages fonctionnels.",k:[["Agence de Brest","Numéro affiché par PagesJaunes","tel","02 78 62 07 35","Peut être un numéro de mise en relation PagesJaunes."],["Candidature","Site carrières","web","bouygues-construction.com (filtre Brest)",""]]},
+ {t:1,n:"Eiffage Construction Bretagne",c:["eg","go"],ll:[48.39826,-4.40748],a:"6 rue Robert Schuman, 29480 Le Relecq-Kerhuon",s:"Major national",d:"Bâtiment neuf et réhabilitation. A construit l'Institut de cancérologie du CHRU de Brest.",k:[["Candidature","Site carrières","web","eiffage.com (filtre Brest)",""]]},
+ {t:2,n:"Sogea Bretagne BTP (Vinci)",c:["eg","reno","go"],ll:[48.41908,-4.46312],a:"9 rue Gustave Zédé, ZA de Kergonan, 29200 Brest",s:"200 à 249 sal. · 87 M€",d:"Réhabilitation d'équipements publics, rénovation de bureaux, travaux après sinistre.",k:[["Candidature","Site carrières Vinci Construction","web","vinci-construction.com (filtre Brest)",""]],tip:"L'agence de Brest dit mener une politique active de stages et d'alternances."},
+ {t:2,n:"Trecobat",c:["eg"],ll:[48.41899,-4.46856],a:"24 rue François Verny, 29200 Brest (siège : 2 place de la Gare, Lannilis)",s:"≈ 180 sal.",d:"Constructeur de maisons individuelles et d'extensions (Extenbois).",k:[["Site web","Contact et offres","web","trecobat.fr",""]]},
+ {t:2,n:"Groupe Legendre",c:["eg","go"],ll:null,a:"Agence de Brest ouverte récemment, adresse pas encore publiée. Siège : 5 rue Louis-Jacques Daguerre, 35136 Saint-Jacques-de-la-Lande",s:"≈ 2 000 pers. (groupe)",d:"Construction, immobilier, énergie. Pas encore d'établissement brestois au registre.",k:[["Siège","Standard","tel","02 99 86 75 86","Demande les coordonnées de l'agence de Brest."],["Site web","","web","groupe-legendre.com",""]],tip:"Une agence qui démarre recrute souvent : demande le nom du directeur d'agence."},
+ {t:2,n:"Constructions Le Couillard (groupe GCC)",c:["go","eg","reno"],ll:[48.43011,-4.45654],a:"8 rue Fernand Forest, 29850 Gouesnou",s:"76 pers. (filiale)",d:"Gros œuvre, entreprise générale et rénovation lourde (démolition, désamiantage).",k:[["Candidature","Site carrières GCC","web","groupe-gcc.com",""]]},
+ {t:3,n:"Le Granit Breton",c:["go","reno","eg"],ll:[48.42751,-4.50569],a:"510 chemin du Rufa, 29200 Brest",s:"42 à 99 sal. · 10,2 M€ (2025)",d:"Entreprise générale tous corps d'état depuis 1954 : gros œuvre, plâtrerie, cloisons, menuiserie, carrelage. Neuf et rénovation, marchés de Brest métropole. RGE isolation.",k:[["Secrétariat","Accueil de l'entreprise","mail","secretariat@legranitbreton.com",""],["Secrétariat","Standard","tel","02 98 03 09 02",""],["Denis Grall","Directeur général","mail","denis.grall@legranitbreton.com",""],["Portable","Titulaire non précisé","tel","06 74 78 39 27","Affiché à côté de l'e-mail de Denis Grall sur LinkedIn. C'est probablement le sien, non confirmé."],["Yannick Castel","Président","mail","yannick.castel@legranitbreton.com","Adresse trouvée sur le site de l'entreprise."]],tip:"Écris à Denis Grall (directeur général), avec le secrétariat en copie."},
+ {t:3,n:"Raoul Corre SAS",c:["eg","reno"],ll:[48.42431,-4.46668],a:"243 rue de Gouesnou, 29200 Brest (siège). Agence : Croas Kerzu, 29260 Le Folgoët",s:"20 à 49 sal.",d:"Entreprise générale : maisons en pierre, extensions, rénovation globale. Recrute des conducteurs de travaux TCE.",k:[["Agence du Folgoët","Standard","tel","02 98 83 02 86",""]]},
+ {t:3,n:"Maisons de l'Avenir (Hexaom)",c:["eg","reno"],ll:[48.41297,-4.48106],a:"29 bis rue Évariste Galois, 29200 Brest",s:"Groupe Hexaom",d:"Constructeur de maisons et service de rénovation énergétique.",k:[["Agence","Standard","tel","02 98 03 90 90",""],["Service rénovation","","mail","renovation@maisonsdelavenir.com",""]]},
+ {t:4,n:"PL Constructions",c:["go","reno"],ll:[48.3585,-4.64263],a:"4 la Croix Normand, 29280 Locmaria-Plouzané",s:"10 à 19 sal.",d:"Maçonnerie, gros œuvre, rénovation et extensions depuis 1994.",k:[],tip:"Numéro disponible sur la fiche PagesJaunes."},
+ {t:4,n:"Entreprise de bâtiment Antunes",c:["go"],ll:[48.41176,-4.47596],a:"75 rue Général Paulet, 29200 Brest",s:"10 à 19 sal.",d:"Maçonnerie générale et gros œuvre.",k:[]},
+ {t:4,n:"Perco Constructions et Travaux",c:["eg","reno"],ll:[48.4317,-4.4473],a:"12 bis rue Henri Becquerel, 29850 Gouesnou",s:"PME avec conducteurs de travaux",d:"Maisons et extensions (traditionnel ou bois), travaux tous corps d'état.",k:[["Thierry Corre","Gérant","tel","02 98 37 24 34","Standard de l'entreprise."],["Site web","","web","percoconstructions.com",""]],tip:"Le gérant a déjà répondu publiquement à une étudiante qui cherchait un stage de conducteur de travaux."},
+ {t:4,n:"Panetta Construction Rénovation",c:["go","reno"],ll:[48.39525,-4.41394],a:"35 boulevard Léopold Maissin, 29480 Le Relecq-Kerhuon",s:"Plus de 50 ans d'activité",d:"Construction, rénovation et extension de maisons. RGE isolation.",k:[["Standard","","tel","02 98 28 04 03",""]]},
+ {t:4,n:"Soares Construction",c:["go","reno"],ll:[48.51501,-4.41112],a:"2 rue de Kergoadou, ZA de Callac, 29860 Plabennec",s:"PME (recrute chefs de chantier)",d:"Gros œuvre : collectifs, bureaux, commerces, en neuf et en rénovation.",k:[["Manuel Soares","Gérant","tel","02 98 37 67 74","Standard de l'entreprise."],["Contact","","mail","contact@soares29.fr",""]]},
+ {t:4,n:"Britton",c:["go","reno"],ll:[48.4563,-4.4537],a:"Rue de Penhoat, 29860 Plabennec (numéro non publié)",s:"Taille non publiée",d:"Gros œuvre en neuf et en rénovation.",k:[]},
+ {t:5,n:"Banches Brestoises",c:["go"],ll:[48.3746,-4.6021],a:"26 route de Trémaïdic, 29280 Plouzané",s:"Très petite entreprise",d:"Maçonnerie générale, banches béton.",k:[]},
+ {t:5,n:"RM Construction",c:["eg"],ll:[48.3665,-4.5838],a:"110 rue Ambroise Paré, 29280 Plouzané",s:"Très petite entreprise",d:"Construction de maisons individuelles.",k:[]},
+ {t:5,n:"Painard Construction",c:["go"],ll:[48.3755,-4.5824],a:"5 rue Mozart, 29280 Plouzané",s:"Très petite entreprise",d:"Maçonnerie, construction.",k:[]},
+ {t:5,n:"B-K Rénovation",c:["reno"],ll:[48.3721,-4.5809],a:"67 rue de Brest, 29280 Plouzané",s:"Très petite entreprise",d:"Maçonnerie et rénovation.",k:[]},
+ {t:5,n:"AB Rénovation",c:["reno"],ll:[48.3822,-4.6106],a:"38 route de la Trinité, 29280 Plouzané",s:"Très petite entreprise",d:"Rénovation.",k:[]},
+ {t:5,n:"DHZ Agencement",c:["so","reno"],ll:[48.3809,-4.6181],a:"1 rue du Trégor, 29280 Plouzané",s:"Très petite entreprise",d:"Plâtrerie, cloisons, agencement intérieur.",k:[]},
+ {t:5,n:"Bodénès Didier (SAS)",c:["so"],ll:[48.3772,-4.6017],a:"11 rue de Mescouezel, 29280 Plouzané",s:"Très petite entreprise",d:"Plâtrerie.",k:[]}
+];
+const T={1:["Grands groupes","plus de 1 000 personnes"],2:["Grandes entreprises régionales","70 à 250 personnes ou groupe"],3:["PME","20 à 99 salariés"],4:["Petites entreprises","10 à 19 salariés ou taille non publiée"],5:["Très petites entreprises","moins de 10 salariés"]};
+const L={eg:"Entreprise générale",go:"Gros œuvre",reno:"Rénovation",so:"Plâtrerie"};
+D.forEach((x,i)=>{x.id=i+1;x.km=x.ll?KM(x.ll[0],x.ll[1]):null;x.named=x.k.some(k=>/^[A-ZÉ][a-zé]+ [A-Z]/.test(k[0])&&!/^(Site|Agence|Service|Standard)/.test(k[0]))});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const acc=x=>x.km==null?["Distance inconnue",""]:x.km<=6?["≈ "+x.km.toFixed(1).replace(".",",")+" km","acc-proche"]:x.km<=14?["≈ "+Math.round(x.km)+" km",""]:["≈ "+Math.round(x.km)+" km · loin sans permis","acc-loin"];
+
+/* Map */
+const NS="http://www.w3.org/2000/svg",svg=document.getElementById("map");
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+const gC=el("g",{}),gL=el("g",{}),gP=el("g",{});
+const BIG=["Brest"],SHOW=["Plouzané","Guilers","Bohars","Gouesnou","Guipavas","Le Relecq-Kerhuon","Locmaria-Plouzané","Plougastel-Daoulas","Plabennec","Saint-Renan","Milizac-Guipronvel"];
+const LBL={"Brest":[545,535],"Le Relecq-Kerhuon":[880,490],"Plougastel-Daoulas":[860,640],"Locmaria-Plouzané":[215,655],"Plouzané":[330,700],"Guilers":[420,470],"Bohars":[525,390],"Gouesnou":[690,325],"Guipavas":[860,410],"Plabennec":[790,150],"Saint-Renan":[255,430],"Milizac-Guipronvel":[400,250]};
+COMMUNES.split("\n").forEach(l=>{const [n,,d]=l.split("|");el("path",{d,class:"commune"},gC);
+  if(LBL[n]){const t=el("text",{x:LBL[n][0],y:LBL[n][1],class:"clabel"+(BIG.includes(n)?" big":"")},gL);t.textContent=n}});
+el("text",{x:610,y:690,class:"sealabel"},gL).textContent="Rade de Brest";
+const hm=el("g",{class:"home"},gL);el("rect",{x:HOME[0]-7,y:HOME[1]-7,width:14,height:14,rx:2},hm);
+el("text",{x:HOME[0]+12,y:HOME[1]+20},hm).textContent="Saint-Pierre";
+const pins={};
+D.forEach(x=>{if(!x.ll)return;const [px,py]=PX(x.ll[0],x.ll[1]);
+  const g=el("g",{class:"pin",tabindex:"0",role:"button","aria-label":x.id+". "+x.n},gP);
+  el("circle",{cx:px,cy:py,r:11},g);el("text",{x:px,y:py},g).textContent=x.id;
+  const tt=el("title",{},g);tt.textContent=x.id+". "+x.n;
+  g.addEventListener("click",()=>select(x.id,false));
+  g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(x.id,false)}});
+  pins[x.id]=g});
+/* keep small numbers on top so overlapping pins in Plouzané stay readable */
+Object.keys(pins).sort((a,b)=>b-a).forEach(k=>gP.appendChild(pins[k]));
+
+const info=document.getElementById("info");
+function select(id,fromList){
+  document.querySelectorAll(".pin.sel,.co.sel").forEach(e=>e.classList.remove("sel"));
+  const x=D.find(d=>d.id===id);if(!x)return;
+  if(pins[id]){pins[id].classList.add("sel");gP.appendChild(pins[id])}
+  const card=document.getElementById("co"+id);if(card)card.classList.add("sel");
+  info.innerHTML=`<div style="min-width:0"><b>${id}. ${esc(x.n)}</b><small>${esc(x.a)}${x.km!=null?" · "+acc(x)[0]:""}</small></div><a class="btn" href="#co${id}" id="goto">Voir la fiche</a>`;
+  if(fromList)document.getElementById("carte").scrollIntoView();
+}
+
+/* List */
+const out=document.getElementById("out");let F="all";
+function match(x){if(F==="all")return true;if(F==="proche")return x.km!=null&&x.km<=6;if(F==="contact")return x.named;return x.c.includes(F)}
+function contact(k){const [who,role,kind,val,note]=k;
+  const v= kind==="web"?`<a href="https://${esc(val.split(" ")[0])}" target="_blank" rel="noopener">${esc(val)}</a>`
+          :`<span>${esc(val)}</span><button class="copy" data-v="${esc(val)}">Copier</button>`;
+  const lab=kind==="tel"?"Tél.":kind==="mail"?"E-mail":"Web";
+  return `<div class="p"><div class="who">${esc(who)}${role?` <small>· ${esc(role)}</small>`:""}</div><div class="v"><small>${lab} :</small>${v}</div>${note?`<div class="note">${esc(note)}</div>`:""}</div>`}
+function render(){
+  let h="";
+  for(const t of [1,2,3,4,5]){
+    const rows=D.filter(x=>x.t===t&&match(x));if(!rows.length)continue;
+    h+=`<div class="tier"><h3>${T[t][0]}</h3><span>${T[t][1]}</span></div><div class="list">`;
+    for(const x of rows){const A=acc(x);
+      const q=encodeURIComponent(x.a.split(" (")[0].split(". Agence")[0]);
+      const mapL=x.ll?`<button class="btn" data-loc="${x.id}">Voir sur la carte</button><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${x.ll[0]},${x.ll[1]}">Itinéraire Google Maps</a>`:`<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${q}">Chercher sur Google Maps</a>`;
+      h+=`<article class="co" id="co${x.id}"><div class="rk${x.ll?"":" off"}">${x.id}</div><div><h4 class="nm">${esc(x.n)}</h4>
+      <div class="meta"><span class="tag">${esc(x.s)}</span>${x.c.map(c=>`<span class="tag">${L[c]}</span>`).join("")}<span class="tag ${A[1]}">${A[0]}</span></div>
+      <p class="what">${esc(x.d)}</p><div class="addr"><b>Adresse :</b> ${esc(x.a)}</div>
+      ${x.k.length?`<div class="ppl">${x.k.map(contact).join("")}</div>`:`<div class="addr" style="color:var(--muted)">Pas de téléphone ni d'e-mail publiés : passe sur place ou cherche la fiche PagesJaunes.</div>`}
+      ${x.tip?`<div class="tip">${esc(x.tip)}</div>`:""}<div class="links">${mapL}</div></div></article>`}
+    h+="</div>"}
+  out.innerHTML=h||"<p>Aucune entreprise pour ce filtre.</p>";
+  Object.entries(pins).forEach(([id,g])=>g.classList.toggle("dim",!match(D[id-1])));
+}
+document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(o=>o.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");F=b.dataset.f;render();
+  try{localStorage.setItem("f",F)}catch(e){}}));
+out.addEventListener("click",e=>{
+  const loc=e.target.closest("[data-loc]");if(loc){select(+loc.dataset.loc,true);return}
+  const b=e.target.closest(".copy");if(!b)return;const v=b.dataset.v;
+  const ok=()=>{b.textContent="Copié";setTimeout(()=>b.textContent="Copier",1500)};
+  const fb=()=>{const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Sélectionné"};
+  try{navigator.clipboard.writeText(v).then(ok,fb)}catch(err){fb()}
+});
+try{const s=localStorage.getItem("f");const sb=s&&document.querySelector(`.chip[data-f="${s}"]`);if(sb){F=s;document.querySelectorAll(".chip").forEach(o=>o.setAttribute("aria-pressed",o===sb?"true":"false"))}}catch(e){}
+render();
+</script>
+
+</body></html>
